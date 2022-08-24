@@ -100,6 +100,7 @@ public class JitsiMeetPlugin() : FlutterPlugin, MethodCallHandler, ActivityAware
      * Method call to join a meeting
      */
     private fun joinMeeting(call: MethodCall, result: Result) {
+        println("From Jitsi Meet")
         val room = call.argument<String>("room")
         if (room.isNullOrBlank()) {
             result.error("400",
@@ -136,6 +137,8 @@ public class JitsiMeetPlugin() : FlutterPlugin, MethodCallHandler, ActivityAware
                 .setAudioOnly(call.argument("audioOnly") ?: false)
                 .setVideoMuted(call.argument("videoMuted") ?: false)
                 .setUserInfo(userInfo)
+		    .setFeatureFlag("video-share.enabled",false)
+		
 
         // Add feature flags into options, reading given Map
         if (call.argument<HashMap<String, Any>?>("featureFlags") != null) {
